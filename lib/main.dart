@@ -1,10 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:signingin/auth.dart';
-import 'package:signingin/first_screen.dart';
-import 'package:signingin/landingPage.dart';
-import 'package:signingin/signin.dart';
+import 'Authentication/auth.dart';
+import 'pages/loginHomePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Sign in/up demo',
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),
     );
@@ -31,27 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FlutterLogo(size: 150),
-              SizedBox(
-                height: 50,
-              ),
-              _signInButton(context),
-              SignInUp()
-            ],
-          ),
-        ),
-      ),
+      body: LoginHomePage(),
     );
   }
 }
 
+/*
 class SignInUp extends StatefulWidget {
   @override
   _SignInUpState createState() => _SignInUpState();
@@ -155,7 +137,8 @@ class _SignInUpState extends State<SignInUp> {
                           new MaterialPageRoute(
                               builder: (context) => new LandingPage()));
                     }).catchError((e) => print(e));
-                  }),
+                  }
+                  ),
             ],
           ),
         ),
@@ -164,37 +147,4 @@ class _SignInUpState extends State<SignInUp> {
   }
 }
 
-Widget _signInButton(BuildContext context) {
-  return OutlineButton(
-      splashColor: Colors.grey,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      highlightElevation: 0,
-      borderSide: BorderSide(color: Colors.grey),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(height: 50, child: Image.asset('images/google.png')),
-            Text(
-              'Sign in with google',
-              style: TextStyle(fontSize: 20),
-            )
-          ],
-        ),
-      ),
-      onPressed: () {
-        signInWithGoogle().whenComplete(
-          () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return FirstScreen();
-                },
-              ),
-            );
-          },
-        );
-      });
-}
+*/

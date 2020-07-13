@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:signingin/Authentication/signin.dart';
 import 'package:signingin/main.dart';
-import 'package:signingin/signin.dart';
+
 
 class FirstScreen extends StatelessWidget {
   @override
@@ -19,12 +20,24 @@ class FirstScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                  imageUrl,
+              Container(
+                height: 130,
+                width: 130,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [Colors.pink[100], Colors.blue[400]],
+                  ),
                 ),
-                radius: 60,
-                backgroundColor: Colors.transparent,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    getImage(),
+                  ),
+                  radius: 60,
+                  backgroundColor: Colors.transparent,
+                ),
               ),
               SizedBox(height: 40),
               Text(
@@ -35,7 +48,7 @@ class FirstScreen extends StatelessWidget {
                     color: Colors.black54),
               ),
               Text(
-                name,
+                getName(),
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.deepPurple,
@@ -50,7 +63,7 @@ class FirstScreen extends StatelessWidget {
                     color: Colors.black54),
               ),
               Text(
-                email,
+                getEmail(),
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.deepPurple,
@@ -84,3 +97,26 @@ class FirstScreen extends StatelessWidget {
     );
   }
 }
+
+
+String getEmail() {
+  if(email == null) {
+    return 'email@gmail.com';
+  }
+  return email;
+}
+
+String getName() {
+  if(name == null) {
+    return 'User Name';
+  }
+  return name;
+}
+
+String getImage() {
+  if(imageUrl == null) {
+    return 'https://picsum.photos/300';
+  }
+  return imageUrl;
+}
+

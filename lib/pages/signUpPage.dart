@@ -1,14 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:signingin/pages/first_screen.dart';
+import 'package:signingin/pages/loginHomePage.dart';
+import 'package:signingin/widgets/myClippers.dart';
 
-class LoginSevenPage extends StatefulWidget {
-  static final String path = "lib/src/pages/login/login7.dart";
-  @override
-  _LoginSevenPageState createState() => _LoginSevenPageState();
-}
 
-class _LoginSevenPageState extends State<LoginSevenPage> {
+class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String email;
+    String password;
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -54,10 +55,10 @@ class _LoginSevenPageState extends State<LoginSevenPage> {
                         height: 20,
                       ),
                       Text(
-                        "Taste Me",
+                        "Sign Up please",
                         style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w200,
                             fontSize: 30),
                       ),
                     ],
@@ -80,7 +81,10 @@ class _LoginSevenPageState extends State<LoginSevenPage> {
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: TextField(
-                onChanged: (String value){},
+                onChanged: (emailValue) {
+                  email = emailValue;
+                },
+                keyboardType: TextInputType.emailAddress,
                 cursorColor: Colors.deepOrange,
                 decoration: InputDecoration(
                     hintText: "Email",
@@ -94,7 +98,7 @@ class _LoginSevenPageState extends State<LoginSevenPage> {
                     ),
                     border: InputBorder.none,
                     contentPadding:
-                    EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
               ),
             ),
           ),
@@ -107,7 +111,11 @@ class _LoginSevenPageState extends State<LoginSevenPage> {
               elevation: 2.0,
               borderRadius: BorderRadius.all(Radius.circular(30)),
               child: TextField(
-                onChanged: (String value){},
+                onChanged: (passwordValue) {
+                  password = passwordValue;
+                },
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
                 cursorColor: Colors.deepOrange,
                 decoration: InputDecoration(
                     hintText: "Password",
@@ -121,7 +129,7 @@ class _LoginSevenPageState extends State<LoginSevenPage> {
                     ),
                     border: InputBorder.none,
                     contentPadding:
-                    EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                        EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
               ),
             ),
           ),
@@ -135,112 +143,27 @@ class _LoginSevenPageState extends State<LoginSevenPage> {
                     borderRadius: BorderRadius.all(Radius.circular(100)),
                     color: Color(0xffff3a5a)),
                 child: FlatButton(
+                  onPressed: () {
+                    authHandler
+                        .handleSignUp(email, password)
+                        .then((FirebaseUser user) {
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new FirstScreen()));
+                    }).catchError((e) => print(e));
+                  },
                   child: Text(
-                    "Login",
+                    "Sign Up",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                         fontSize: 18),
                   ),
-                  onPressed: () {},
                 ),
               )),
-          SizedBox(height: 20,),
-          Center(
-            child: Text("FORGOT PASSWORD ?", style: TextStyle(color:Colors.red,fontSize: 12 ,fontWeight: FontWeight.w700),),
-          ),
-          SizedBox(height: 40,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Don't have an Account ? ", style: TextStyle(color:Colors.black,fontSize: 12 ,fontWeight: FontWeight.normal),),
-              Text("Sign Up ", style: TextStyle(color:Colors.red, fontWeight: FontWeight.w500,fontSize: 12, decoration: TextDecoration.underline )),
-
-            ],
-          )
         ],
       ),
     );
-  }
-}
-
-class WaveClipper1 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
-
-    var firstEndPoint = Offset(size.width * 0.6, size.height - 29 - 50);
-    var firstControlPoint = Offset(size.width * .25, size.height - 60 - 50);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    var secondEndPoint = Offset(size.width, size.height - 60);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 50);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-class WaveClipper3 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
-
-    var firstEndPoint = Offset(size.width * 0.6, size.height - 15 - 50);
-    var firstControlPoint = Offset(size.width * .25, size.height - 60 - 50);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    var secondEndPoint = Offset(size.width, size.height - 40);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 30);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-class WaveClipper2 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
-
-    var firstEndPoint = Offset(size.width * .7, size.height - 40);
-    var firstControlPoint = Offset(size.width * .25, size.height);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    var secondEndPoint = Offset(size.width, size.height - 45);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 50);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
   }
 }
