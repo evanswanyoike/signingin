@@ -1,0 +1,15 @@
+Index: lib/main.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/main.dart	(date 1594641000000)
++++ lib/main.dart	(date 1594641177711)
+@@ -11,7 +11,6 @@
+   Widget build(BuildContext context) {
+     return MaterialApp(
+       title: 'Sign in/up demo',
+-      debugShowCheckedModeBanner: false,
+       home: LoginScreen(),
+     );
+   }
