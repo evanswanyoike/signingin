@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:signingin/main.dart';
 import 'package:signingin/signin.dart';
 
-
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,10 @@ class FirstScreen extends StatelessWidget {
               RaisedButton(
                 onPressed: () {
                   signOutGoogle();
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginScreen();}), ModalRoute.withName('/'));
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) {
+                    return LoginScreen();
+                  }), ModalRoute.withName('/'));
                 },
                 color: Colors.deepPurple,
                 child: Padding(
